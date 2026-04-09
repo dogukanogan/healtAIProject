@@ -13,7 +13,6 @@ A secure, GDPR-compliant web platform that enables structured partner discovery 
 | Doğukan Ogan | `dogukan` | Frontend — React + Vite |
 | Oğuz Arda Orhan | `oguz` | Backend — Node.js + Express + PostgreSQL |
 
-> Each member works exclusively in their own folder. `frontend/` is Doğukan's zone, `backend/` is Oğuz's zone. Do not push to each other's folders.
 
 ---
 
