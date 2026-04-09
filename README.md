@@ -11,7 +11,7 @@ A secure, GDPR-compliant web platform that enables structured partner discovery 
 ```
 healthAIProject/
 ├── frontend/     ← Dogukan's work (React + Vite)
-├── backend/      ← Partner's work (Node.js + Express)
+├── backend/      ← Oguz's work (Node.js + Express)
 └── docs/         ← Shared documents (SRS, SDD)
 ```
 
