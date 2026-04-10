@@ -56,11 +56,11 @@ healtAIProject/
 
 ### ✅ V1 — April 9, 2026 · Frontend + SRS
 - [x] Base setup: routing, AuthContext, mock API service, Navbar, global CSS
-- [ ] Auth pages: Login, Register (.edu validation, role selection, email verify step)
-- [ ] Dashboard + Post List + Search & Filter
-- [ ] Post Create / Edit / Detail + Meeting Request flow
-- [ ] Admin Panel + Profile & GDPR page
-- [ ] SRS_V1 document
+- [x] Auth pages: Login, Register (.edu validation, role selection, email verify step)
+- [x] Dashboard + Post List + Search & Filter
+- [x] Post Create / Edit / Detail + Meeting Request flow
+- [x] Admin Panel + Profile & GDPR page
+- [x] SRS_V1 document
 
 ### V2 — April 30, 2026 · Full Stack Integration + SDD
 - [ ] Express API endpoints live
