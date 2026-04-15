@@ -1,0 +1,116 @@
+.dashboard-hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+  border-radius: 12px;
+  padding: 40px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.dashboard-hero-text h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dashboard-hero-text p {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-bottom: 24px;
+  max-width: 420px;
+}
+
+.dashboard-hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dashboard-hero-actions .btn-primary {
+  background: white;
+  color: var(--primary);
+}
+
+.dashboard-hero-actions .btn-primary:hover {
+  background: var(--gray-100);
+}
+
+.dashboard-hero-actions .btn-secondary {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-color: rgba(255,255,255,0.4);
+}
+
+.dashboard-hero-actions .btn-secondary:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.dashboard-hero-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 90px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.role-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.role-banner-engineer    { background: #dbeafe; color: #1e40af; }
+.role-banner-healthcare  { background: #d1fae5; color: #065f46; }
+.role-banner-admin       { background: #fef3c7; color: #92400e; }
+
+.role-banner-icon { font-size: 20px; }
+
+.dashboard-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.dashboard-section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.loading-text {
+  color: var(--gray-400);
+  text-align: center;
+  padding: 40px;
+}

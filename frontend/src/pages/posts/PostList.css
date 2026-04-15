@@ -1,0 +1,28 @@
+.results-count {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 16px;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray-400);
+}
+
+.empty-state p {
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.loading-text {
+  color: var(--gray-400);
+  text-align: center;
+  padding: 40px;
+}
