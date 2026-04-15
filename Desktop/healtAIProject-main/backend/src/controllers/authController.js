@@ -1,16 +1,30 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const VALID_ROLES = ['engineer', 'healthcare', 'admin'];
 
 const register = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
+    const normalizedEmail = (email || '').trim().toLowerCase();
 
-    if (!email.endsWith('.edu')) {
+    if (!name || !normalizedEmail || !password || !role) {
+      return res.status(400).json({ message: 'Name, email, password and role are required.' });
+    }
+
+    if (!normalizedEmail.endsWith('.edu')) {
       return res.status(400).json({ message: 'Only institutional .edu email addresses are allowed.' });
     }
 
-    const existingUser = await User.findOne({ where: { email } });
+    if (!VALID_ROLES.includes(role)) {
+      return res.status(400).json({ message: 'Invalid role selected.' });
+    }
+
+    if (password.length < 8) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters.' });
+    }
+
+    const existingUser = await User.findOne({ where: { email: normalizedEmail } });
     if (existingUser) {
       return res.status(400).json({ message: 'This email is already registered.' });
     }
@@ -19,8 +33,8 @@ const register = async (req, res, next) => {
     const password_hash = await bcrypt.hash(password, salt);
 
     const newUser = await User.create({
-      name,
-      email,
+      name: name.trim(),
+      email: normalizedEmail,
       password_hash,
       role,
       verified: true // As per V1 scope in dummy phase, V2 will introduce email conf
@@ -40,7 +54,13 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
+    const normalizedEmail = (email || '').trim().toLowerCase();
+
+    if (!normalizedEmail || !password) {
+      return res.status(400).json({ message: 'Email and password are required.' });
+    }
+
+    const user = await User.findOne({ where: { email: normalizedEmail } });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password.' });
