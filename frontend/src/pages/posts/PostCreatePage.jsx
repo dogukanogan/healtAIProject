@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import { postsApi } from '../../services';
 import './PostForm.css';
 
@@ -14,28 +15,31 @@ const EMPTY = { title:'', domain:'', description:'', expertiseRequired:'', city:
 export default function PostCreatePage() {
   const { user } = useAuth();
   const navigate  = useNavigate();
+  const toast     = useToast();
   const [form, setForm]       = useState(EMPTY);
-  const [error, setError]     = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (status) => {
     if (!form.title || !form.domain || !form.description || !form.expertiseRequired || !form.city) {
-      setError('Please fill in all required fields (marked with *).'); return;
+      toast.warning('Please fill in all required fields (marked with *).'); return;
     }
-    setError(''); setLoading(true);
+    setLoading(true);
     try {
       const post = await postsApi.create({ ...form, status, userId: user.id, authorName: user.name, role: user.role });
+      toast.success(status === 'active' ? 'Post published successfully!' : 'Draft saved.');
       navigate(`/posts/${post.id}`);
-    } catch (err) { setError(err.message); }
-    finally { setLoading(false); }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="page-container">
       <div className="page-header"><h1 className="page-title">Create New Post</h1></div>
-      {error && <div className="form-error-banner">{error}</div>}
       <div className="post-form-card">
 
         <div className="form-section">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { adminApi, postsApi } from '../../services';
+import { useToast } from '../../context/ToastContext';
 import './AdminPanel.css';
 
 const TABS = ['Users', 'Posts', 'Logs'];
@@ -14,6 +15,7 @@ export default function AdminPanel() {
   const [actionFilter, setActionFilter] = useState('');
   const [loading, setLoading]     = useState(true);
   const navigate = useNavigate();
+  const toast    = useToast();
 
   useEffect(() => {
     Promise.all([
@@ -28,14 +30,20 @@ export default function AdminPanel() {
 
   const handleSuspend = async (id) => {
     if (!window.confirm('Suspend this user?')) return;
-    await adminApi.suspendUser(id);
-    setUsers(prev => prev.map(u => u.id === id ? { ...u, suspended: true } : u));
+    try {
+      await adminApi.suspendUser(id);
+      setUsers(prev => prev.map(u => u.id === id ? { ...u, suspended: true } : u));
+      toast.success('User suspended.');
+    } catch (err) { toast.error(err.message); }
   };
 
   const handleRemovePost = async (id) => {
     if (!window.confirm('Remove this post?')) return;
-    await postsApi.delete(id);
-    setPosts(prev => prev.filter(p => p.id !== id));
+    try {
+      await postsApi.delete(id);
+      setPosts(prev => prev.filter(p => p.id !== id));
+      toast.success('Post removed.');
+    } catch (err) { toast.error(err.message); }
   };
 
   const filteredUsers = roleFilter ? users.filter(u => u.role === roleFilter) : users;

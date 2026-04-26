@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import { meetingsApi } from '../../services';
 import './MeetingRequestModal.css';
 
 export default function MeetingRequestModal({ post, onClose, onSuccess }) {
   const { user } = useAuth();
+  const toast     = useToast();
   const [step, setStep]       = useState(1); // 1: message, 2: NDA, 3: slots
   const [message, setMessage] = useState('');
   const [ndaAccepted, setNda] = useState(false);
   const [slots, setSlots]     = useState(['', '']);
   const [loading, setLoading] = useState(false);
-  const [error, setError]     = useState('');
 
   const handleSlotChange = (i, val) => {
     const updated = [...slots];
@@ -19,8 +20,8 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
   };
 
   const handleSubmit = async () => {
-    if (!slots[0]) { setError('Please propose at least one time slot.'); return; }
-    setError(''); setLoading(true);
+    if (!slots[0]) { toast.warning('Please propose at least one time slot.'); return; }
+    setLoading(true);
     try {
       await meetingsApi.create({
         postId: post.id,
@@ -33,9 +34,13 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
         ndaAccepted,
         proposedSlots: slots.filter(Boolean),
       });
+      toast.success('Meeting request sent!');
       onSuccess();
-    } catch (err) { setError(err.message); }
-    finally { setLoading(false); }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -56,8 +61,6 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
         </div>
 
         <div className="modal-body">
-          {error && <div className="form-error-banner">{error}</div>}
-
           {step === 1 && (
             <div>
               <p className="modal-subtitle">Introduce yourself and explain your interest in <strong>{post.title}</strong>.</p>
@@ -99,8 +102,8 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
           {step > 1 && <button className="btn btn-secondary" onClick={() => setStep(s => s - 1)}>Back</button>}
           {step < 3 && (
             <button className="btn btn-primary" onClick={() => {
-              if (step === 2 && !ndaAccepted) { setError('You must accept the NDA to continue.'); return; }
-              setError(''); setStep(s => s + 1);
+              if (step === 2 && !ndaAccepted) { toast.warning('You must accept the NDA to continue.'); return; }
+              setStep(s => s + 1);
             }}>Next</button>
           )}
           {step === 3 && (

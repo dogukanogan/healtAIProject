@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
 import PrivateRoute from './router/PrivateRoute';
 import Navbar from './components/layout/Navbar';
 
@@ -30,6 +31,7 @@ function AppLayout({ children }) {
 
 export default function App() {
   return (
+    <ToastProvider>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -71,5 +73,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </ToastProvider>
   );
 }

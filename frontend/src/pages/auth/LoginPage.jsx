@@ -1,27 +1,28 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import './Auth.css';
 
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate  = useNavigate();
+  const toast     = useToast();
 
-  const [form, setForm]     = useState({ email: '', password: '' });
-  const [error, setError]   = useState('');
+  const [form, setForm]       = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
     try {
       await login(form);
+      toast.success('Welcome back!');
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message);
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -33,8 +34,6 @@ export default function LoginPage() {
         <div className="auth-logo">⚕ HealthAI</div>
         <h1 className="auth-title">Sign In</h1>
         <p className="auth-subtitle">Welcome back. Sign in to your account.</p>
-
-        {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
