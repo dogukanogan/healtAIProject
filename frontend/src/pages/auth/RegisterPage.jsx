@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authApi } from '../../services/mockApi';
+import { authApi } from '../../services';
 import './Auth.css';
 
 export default function RegisterPage() {

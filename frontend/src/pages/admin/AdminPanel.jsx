@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { adminApi, postsApi } from '../../services/mockApi';
+import { adminApi, postsApi } from '../../services';
 import './AdminPanel.css';
 
 const TABS = ['Users', 'Posts', 'Logs'];

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { postsApi } from '../../services/mockApi';
+import { postsApi } from '../../services';
 import PostCard from '../../components/common/PostCard';
 import FilterBar from '../../components/common/FilterBar';
 import './PostList.css';

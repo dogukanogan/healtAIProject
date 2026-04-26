@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { postsApi } from '../../services/mockApi';
+import { postsApi } from '../../services';
 import './PostForm.css';
 
 const DOMAINS    = ['Cardiology','Radiology','Emergency Medicine','Psychiatry','Geriatrics','Oncology','Neurology','Orthopedics','Dermatology','Other'];

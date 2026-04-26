@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { postsApi } from '../../services/mockApi';
+import { postsApi } from '../../services';
 import MeetingRequestModal from '../meetings/MeetingRequestModal';
 import './PostDetail.css';
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { meetingsApi } from '../../services/mockApi';
+import { meetingsApi } from '../../services';
 import './MeetingRequestModal.css';
 
 export default function MeetingRequestModal({ post, onClose, onSuccess }) {
