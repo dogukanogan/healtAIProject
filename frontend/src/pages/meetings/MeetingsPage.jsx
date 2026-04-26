@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { meetingsApi } from '../../services/mockApi';
+import { meetingsApi } from '../../services';
 import './Meetings.css';
 
 const STATUS_COLORS = { pending:'badge-draft', accepted:'badge-active', declined:'badge-closed', scheduled:'badge-scheduled', completed:'badge-active', cancelled:'badge-closed' };

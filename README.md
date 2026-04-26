@@ -65,7 +65,7 @@ healtAIProject/
 ### V2 — April 30, 2026 · Full Stack Integration + SDD
 - [ ] Express API endpoints live
 - [ ] PostgreSQL database connected
-- [ ] Frontend switches from mock API to real API
+- [x] Frontend switches from mock API to real API
 - [ ] SDD_V1 document
 
 ### V3 — May 7, 2026 · Final Submission
