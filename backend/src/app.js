@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 
 // ── Middleware ──────────────────────────────────────────────────────────────
-app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -20,6 +20,7 @@ app.use('/api/auth',     require('./routes/auth'));
 app.use('/api/posts',    require('./routes/posts'));
 app.use('/api/meetings', require('./routes/meetings'));
 app.use('/api/admin',    require('./routes/admin'));
+app.use('/api/profile',  require('./routes/profile'));
 
 // ── Global error handler ──────────────────────────────────────────────────
 app.use((err, req, res, next) => {

@@ -47,7 +47,13 @@ const getLogs = async (req, res, next) => {
       order: [['createdAt', 'DESC']]
     });
 
-    res.status(200).json(logs);
+    const formattedLogs = logs.map(log => {
+      const lData = log.toJSON();
+      lData.userId = lData.user_id;
+      return lData;
+    });
+
+    res.status(200).json(formattedLogs);
   } catch (error) {
     next(error);
   }

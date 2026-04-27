@@ -13,6 +13,44 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U healthai -d healthai_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: healthai_backend
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: healthai_db
+      DB_USER: healthai
+      DB_PASSWORD: healthai_secret
+      JWT_SECRET: change_this_in_production
+      JWT_EXPIRES_IN: 7d
+      CLIENT_ORIGIN: http://localhost:80
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:3000/api
+        VITE_USE_MOCK: "false"
+    container_name: healthai_frontend
+    restart: unless-stopped
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
 
   pgadmin:
     image: dpage/pgadmin4:latest

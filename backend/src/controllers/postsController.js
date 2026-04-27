@@ -35,7 +35,13 @@ const getAllPosts = async (req, res, next) => {
       order: [['createdAt', 'DESC']]
     });
 
-    res.status(200).json(posts);
+    const formattedPosts = posts.map(post => {
+      const pData = post.toJSON();
+      pData.userId = pData.user_id;
+      return pData;
+    });
+
+    res.status(200).json(formattedPosts);
   } catch (error) {
     next(error);
   }
